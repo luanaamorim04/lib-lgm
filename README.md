@@ -1,4 +1,4 @@
-# Lib-das-lindas
+# lib-lgm 
    ## [topics](https://docs.google.com/spreadsheets/d/1zo_SoyNz4mK2Dz3V__Ldo8TvHnOeYX2cK3BMPB7dL5A/edit?usp=sharing)
    * [data structures](data-structures)
    * [dynamic programming](dynamic-programming)
