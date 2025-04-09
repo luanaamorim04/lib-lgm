@@ -66,7 +66,8 @@ int32_t main()
 		}
 		if (x == 0) ang = 90; 
 		else ang = atan(y/x)*180/PI;
-		if (ang < 0) ang = 180 - ang;
+		if (ang < 0) ang = 180 + ang;
+//		cout << ang << endl;
 
 		int voltas = floor(tot / p);
 		double janela = a*p/360;
@@ -77,32 +78,19 @@ int32_t main()
 		{
 			double metade1 = ang + a/2;
 			double metade2 = a/2 - ang;	
-			sobra = min(last, metade2) + min(metade1, last);
+			if (last > 180) sobra = max(last - 360 + metade2, 0.0);
+			sobra += min(last, metade1);
 		}
 		else
 		{
-			sobra = min(last, ang + a/2) - ang + a/2;
+			sobra = min(last, ang + a/2) - min(last, ang - a/2);
 		}
 
-		sobra = max(sobra, 0.0);
+//		cout << sobra << endl;
 		sobra = sobra*p/360;
 		cout << fixed << setprecision(10) << tempo+sobra << endl;
 	}
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
