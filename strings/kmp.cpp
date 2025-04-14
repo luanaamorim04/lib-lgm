@@ -1,4 +1,21 @@
 // complexidade O(n+m)
+//kmp[i] = maior suffixo terminando em i que também é prefixo de s
+vector<int> build(string s)
+{
+	vector<int> kmp(MAXN);
+	kmp[0] = 0;
+	for (int i = 1; i < s.size(); i++)
+	{
+		int j = kmp[i-1];
+		while (j > 0 && s[i] != s[j])
+			j = kmp[j-1];
+		if (s[i] == s[j])
+			j++;
+		kmp[i] = j;
+	}
+
+	return kmp;
+}
 
 // constroi vetor com os tamanhos dos maiores prefixos pattern[0...i] que
 // tambem sao sufixos (nao vale a string inteira)
