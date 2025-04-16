@@ -1,26 +1,24 @@
-// encontra menor distancia de x para todos os vertices
-// se ao final do algoritmo d[i] = LINF, entao x nao alcanca i
-// complexidade: O(m log(n))
+//complexity: mlog(n)
+vector<int> dijkstra(int s, int n) 
+{
+	vector<int> dist(MAXN);
+	priority_queue<ii, vector<ii>, greater<ii> > pq;
+	for (int i = 0; i <= n; i++)
+		dist[i] = INF;
+	pq.push({0ll, s});
 
-int d[MAXN];
-vector<pair<int, int>> g[MAXN]; // pair eh do tipo {vizinho, peso}
+	while (pq.size()) 
+	{
+		auto[d, u] = pq.top(); pq.pop();
+		if (d > dist[u]) continue;
 
-int n; // numero de vertices
-
-void dijkstra(int v) {
-	for (int i = 0; i < n; i++)
-		d[i] = MOD;
-	d[v] = 0;
-	priority_queue<pair<ll, int>> pq;
-	pq.emplace(0, v);
-
-	while (pq.size()) {
-		auto [ndist, u] = pq.top(); pq.pop();
-		if (-ndist > d[u]) continue;
-
-		for (auto [idx, w] : g[u]) if (d[idx] > d[u] + w) {
-			d[idx] = d[u] + w;
-			pq.emplace(-d[idx], idx);
-		}
+		for (auto[v, w] : grafo[u]) 
+			if (dist[v] > dist[u] + w) 
+			{
+				dist[v] = dist[u] + w;
+				pq.emplace(dist[v], v);
+			}
 	}
+
+	return dist;
 }
