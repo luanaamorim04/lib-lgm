@@ -17,12 +17,11 @@
 using namespace std;
 
 string s, p;
-int n, kmp[MAXN], resp;
+int n, resp;
 
-int32_t main()
-{_
-	cin >> s >> p;
-	s = p + '$' + s;
+vector<int> build(string s)
+{
+	vector<int> kmp(MAXN);
 	kmp[0] = 0;
 	for (int i = 1; i < s.size(); i++)
 	{
@@ -32,7 +31,34 @@ int32_t main()
 		if (s[i] == s[j])
 			j++;
 		kmp[i] = j;
-		if (kmp[i] == p.size()) resp++;
 	}
-	cout << resp << endl;
+
+	return kmp;
+}
+
+int32_t main()
+{_
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		cin >> s >> p;
+		resp = 0;
+		s = p + '$' + s;
+		vector<int> kmp;
+		kmp = build(s);
+		for (int i = 1; i < s.size(); i++)
+			if (kmp[i] == p.size()) resp++;
+		if (resp == 0)
+		{
+			cout << "Not Found" << endl;
+			cout << endl;
+			continue;
+		}
+		cout << resp << endl;
+		for (int i = 1; i < s.size(); i++)
+			if (kmp[i] == p.size()) cout << i-2*p.size()+1 << ' ';
+		cout << endl;
+		cout << endl;
+	}
 }
