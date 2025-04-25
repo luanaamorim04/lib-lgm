@@ -1,16 +1,18 @@
-/*
-	initialize table[i][0] with the a[i] value.  
- 	query on interval(l, r)
- */
+int tab[MAXN][MAXL];
 
 void build()
 {
-	for (int i = 1; i < 19; i++)
-		for (int j = 1; j <= n; j++)
-			tab[j][i] = max(tab[j][i-1], tab[j+(1<<(i-1))][i-1]);
+    for (int i = 1; i <= n; i++)
+        tab[i][0] = arr[i];
+    for (int i = 1; i < MAXL; i++)
+        for (int j = 1; j <= n; j++)
+            tab[j][i] = __gcd(tab[j][i-1], tab[j+(1<<(i-1))][i-1]);
 }
-
-int intervalo(int l, int r)
+ 
+int query(int l, int r)
 {
-	return max(tab[l][maior[r-l+1]], tab[r-(1<<maior[r-l+1])][maior[r-l+1]]);
+    int msb = 31 - __builtin_clz(r-l+1);
+    int esq = tab[l][msb];
+    int dir = tab[r - (1<<msb) + 1][msb];
+    return __gcd(esq, dir);
 }
