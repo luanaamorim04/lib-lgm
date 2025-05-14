@@ -3,7 +3,6 @@ vector<int> centroid_tree[MAXN];
 int is_removed[MAXN];
 int subtree_size[MAXN];
 int pai[MAXN];
-char ans[MAXN];
 
 int get_subtree_size(int node, int parent = -1) {
 	subtree_size[node] = 1;
@@ -32,9 +31,9 @@ int build_centroid_decomp(int node = 0) {
 	for (int child : adj[centroid]) {
 		if (is_removed[child]) continue;
 		int child_centroid = build_centroid_decomp(child);
-        centroid_tree[centroid].push_back(child_centroid);
-        centroid_tree[child_centroid].push_back(centroid);
-        pai[child_centroid] = centroid;
+        	centroid_tree[centroid].push_back(child_centroid);
+        	centroid_tree[child_centroid].push_back(centroid);
+        	pai[child_centroid] = centroid;
 	}
 
     return centroid;
